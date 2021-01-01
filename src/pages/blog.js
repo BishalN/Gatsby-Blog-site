@@ -1,19 +1,17 @@
 import React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
+import Helmet from "../components/Helmet"
 
 const Blog = () => {
   const data = useStaticQuery(graphql`
     query {
-      allMarkdownRemark {
+      allContentfulBlogPost(sort: { fields: publishedDate, order: DESC }) {
         edges {
           node {
-            frontmatter {
-              title
-              date
-            }
-            fields {
-              slug
-            }
+            title
+            slug
+            publishedDate(formatString: "MMMM Do, YYYY")
+            id
           }
         }
       }
@@ -23,14 +21,15 @@ const Blog = () => {
   return (
     <div>
       <h1>Blog</h1>
+      <Helmet title="blog" />
       <ol>
-        {data.allMarkdownRemark.edges.map(edge => {
+        {data.allContentfulBlogPost.edges.map(edge => {
           return (
             <li key={Math.random()}>
-              <Link to={`/blog/${edge.node.fields.slug}`}>
-                <h2>{edge.node.frontmatter.title}</h2>
+              <Link to={`/blog/${edge.node.slug}`}>
+                <h2>{edge.node.title}</h2>
               </Link>
-              <p>{edge.node.frontmatter.date}</p>
+              <p>{edge.node.publishedDate}</p>
             </li>
           )
         })}

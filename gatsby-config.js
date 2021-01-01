@@ -4,6 +4,7 @@ module.exports = {
     author: "Bishal Neupane",
   },
   plugins: [
+    'gatsby-plugin-react-helmet',
     {
       resolve: "gatsby-source-contentful",
       options: {

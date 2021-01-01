@@ -3,6 +3,7 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
+import Helmet from "../components/Helmet"
 
 export default function Home() {
   const data = useStaticQuery(graphql`
@@ -17,6 +18,7 @@ export default function Home() {
   `)
   return (
     <div>
+      <Helmet title="Home" />
       <Header />
       <h1>{data.site.siteMetadata.title}</h1>
       <h2>{data.site.siteMetadata.author}</h2>
